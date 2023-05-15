@@ -1,5 +1,5 @@
 # SPD-examen-montacargas
-~~
+~~~~
 // C++ code
 //
 #define boton_parar A2
@@ -310,4 +310,4 @@ void apaga_numero_nueve(){
   apaga_led(CENTRO);
   apaga_led(ABAJO_DERECHA);
 }
-~~
+~~~~
