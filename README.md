@@ -8,8 +8,11 @@ El objetivo de este proyecto es realizar el "menu" interactivo de un montaargas 
 ## Funcionamiento
 para su funcionamiento se divide en diferentes partes las cuales son las siguientes:
 * Configuracion y definicion de variables
+* 
 
-# Configuracion y definicion de variables
+### Configuracion y definicion de variables
+
+### funcion pincipal
 ~~~~
 // C++ code
 //
