@@ -83,12 +83,16 @@ Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte de
 Las funciones para el paro de emerrgencia son:
 * emergencia
 * movimiento
+======
+* emergencia:
 
-⋅⋅emergencia es una funcion la cual recibe por parametro una bandera y la devuelve con un valor de HIGH o LOW.
+emergencia es una funcion la cual recibe por parametro una bandera y la devuelve con un valor de HIGH o LOW.
 Para esto lee el puerto asociado a BOTON_PARAR para determinar si se esta recibiendo una señal.Luego en conjunto con el valor que la bandera pueda tener determina si debe asignarle HIGH o LOW, siempre para cambiar el valor del mismo y no asignarle un valor que ya tiene.
 Otra funcion que emergencia posee es la de invalitar la el resto de botones ya que mientras la bandera que este retorne sea HIGH no se ejecutara mas codigo que esta funcion.
+======
+* movimiento:
 
-⋅⋅movimiento principalmente se encarga de determinar el tiempo durante el cual el ascensor se encuentra en movimiento.Para esto utiliza la funcion millis(la cual se encuentra explicada en la parte inferior de este documento) y un contador inicializado como long para poder guardar el valor que millis devuelve con un adicional de 3000 milisegundos (el tiempo que el montacargas se mueve de piso en piso).
+movimiento principalmente se encarga de determinar el tiempo durante el cual el ascensor se encuentra en movimiento.Para esto utiliza la funcion millis(la cual se encuentra explicada en la parte inferior de este documento) y un contador inicializado como long para poder guardar el valor que millis devuelve con un adicional de 3000 milisegundos (el tiempo que el montacargas se mueve de piso en piso).
 Lo que permite a la funcion determinar cuanto timepo pasa es un while el cual compara a contador (quien tiene el valor del tiempo a la hora de apretar el boton de inicio del movimiento mas 3 segundos) a la funcion millis y cuando millis devuelva un valor mayor o igual al de contador este terminara la funcion.
 Ahora dentro de este while se encuentra una referencia a la funcion emergencia la cual si el BOTON_PARAR es apretado guardaria el tiempo restante del contador para que este llegue a 3 segundos y si el mismo boton es presionado otra vez el valor que millis deberia alcanzar para que el montacargas llegue a su destino sera guardado en contador
 ~~~~
@@ -119,7 +123,9 @@ void movimiento(){
       }
    }
 ~~~~ 
-* Funcion para mover el montacargas
+* Funcion para mover el montacargas:
+
+montacargas es la funcion designada para deteminar el orden de las funciones logicas usadas asi logrando que estas funcionen sin problemas como tambien informa dentro del monitor serial el piso en el que se encuentra el montacargas a la hora de que este finalize el recorrido y solo lo hara cuando alguno de los botones designados para subir o bajar de pisos envie una señal de HIGH asi logrando que se repita el contenido de la funcion todo el timepo que el montacargas se encuentre inactivo.
 ~~~~
 void montacargas(){
   if(digitalRead(BOTON_BAJAR) == HIGH|| digitalRead(BOTON_SUBIR) == HIGH){
@@ -131,9 +137,13 @@ void montacargas(){
 }
 ~~~~
 ### Funciones logicas y procesamiento de datos
+Estas son las funciones que se encargan de determinar las condiciones que deben requeririse para que ciertas cosas pasen (el cambio de valor de la variable contado o la iluminacion de los leds segun el piso).
+======
+* instrucciones_segun_numero:
+
+instrucciones_segun_numero se encarga de segun el valor de la variable piso indicar que se debera hacer con el display 7 segmentos para indicar el piso el piso en el que el montacargas se encuentra actualmente. Para mostrar el numero deseado hace referencia a las funciones prender_numero_...... y apagar_numero_..... para apagar las partes del segmento que pertenece a los numeros anteriores que pudieron estar pendidos y luego prender las partes del segmento que representa el valor de signo.
 
 ~~~~          
-//funciones logicas para funcionamiento
 void instrucciones_segun_numero(){
     switch (piso)
     {
@@ -187,29 +197,44 @@ void instrucciones_segun_numero(){
         break;
     }
 }
+~~~~ 
+* control_movimiento
 
+control_movimiento se encarga de apagar la luz referente al montacargas estando pausado y prender la luz referente a la luz en movimiento y luego llamar a la funcion subir_piso o bajar_piso para agregar o restar 1 a piso para luego llamar a la funcion movimiento para determinar cuando 3 segundos halla pasado  para luego apagar la luz referente a movimiento y prender la luz referente a el montacargas estando pausado.
+~~~~ 
 void control_movimiento(){
-    if ( (digitalRead(BOTON_SUBIR) == HIGH) || (digitalRead(BOTON_BAJAR) == HIGH)){
-        apaga_led(LUZ_PARADO);
-        prende_led(LUZ_MOVIENDO);
-        subir_piso();
-        bajar_piso();
-		movimiento();
-        apaga_led(LUZ_MOVIENDO);
-        prende_led(LUZ_PARADO);
-    }
+  apaga_led(LUZ_PARADO);
+  prende_led(LUZ_MOVIENDO);
+  subir_piso();
+  bajar_piso();
+  movimiento();
+  apaga_led(LUZ_MOVIENDO);
+  prende_led(LUZ_PARADO);
 }
 ~~~~ 
 
 ### Entrada de datos
+Las funciones clasificadas como entrada de datos son:
+* subir_piso
+* bajar_piso
+
+Estas se encargan de modificar el valor de piso sumandole o restandole 1 segun que boton es presionado y que su valor no sea 9 o 0 los cuales son los valores limite que esta variable puiede tener.
+* subir_piso
+
+subir_piso se encarga de sumarle 1 a la variable piso si la lectura del BOTON_SUBIR es HIGH y el valor de piso no es 9.
 ~~~~ 
-//entrada de datos
+
 void subir_piso(){
     if ( (digitalRead(BOTON_SUBIR) == HIGH) && (piso != 9)){
       	Serial.println("Subiendo..");
         piso++;
     }
 }
+~~~~
+* bajar_piso
+
+bajar_piso se encarga de restarle 1 a la variable piso si la lectura del BOTON_BAJAR es HIGH y el valorr de piso no es 0.
+~~~~
 void bajar_piso(){
     if ( (digitalRead(BOTON_BAJAR) == HIGH) && (piso != 0)){
       	Serial.println("Bajando..");
@@ -218,15 +243,27 @@ void bajar_piso(){
 }
 ~~~~ 
 ### Funciones para apagado y prendido de leds
-~~~~ 
+Estas funciones son las encargadas de cambiar el estado de los puertos asignados a leds dividiendose en dos caterias:
+* Las funciones para evitar la repeticion de DigitalWrite
+* Las funciones para determinar la combinacion de un numero en el display
 
-//funciones para apagar y prender led-->>
+Ambas de estas categorias tienen variantes para prender y apagar los leds.
+
+* Las funciones para evitar la repeticion de DigitalWrite:
+
+Estas son una funcion que recibe por parametro un puerto y mediante digitalWrite cambia el puerto de HIGH a LOW o de LOW a HIGH
+~~~~ 
 void apaga_led(int led){
   digitalWrite(led, LOW);
 }
 void prende_led(int led){  	
 	digitalWrite(led, HIGH);
 }
+~~~~
+* Las funciones para determinar la combinacion de un numero en el display:
+
+Estas funciones utilizan las funciones anteriores para en el display 7 segmentos mostrar el numero que tienen en el nombre o para deja de mostrarlo
+~~~~
 void prende_numero_cero(){
   prende_led(ARRIBA);
   prende_led(ARRIBA_DERECHA);
