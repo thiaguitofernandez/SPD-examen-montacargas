@@ -7,6 +7,7 @@
 El objetivo de este proyecto es realizar el "menu" interactivo de un montaargas el cual debe subir pisos y bajarlos uno a la vez.
 ##funcionamiento
 para su funcionamiento se divide en diferentes partes las cuales son las siguientes:
+..*configuracion y definicion de variables
 
 #configuracion y definicion de variables
 ~~~~
