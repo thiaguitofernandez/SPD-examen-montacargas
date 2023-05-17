@@ -2,6 +2,7 @@
 
 ## Examen: Montacargas
 ![Tinkercad](./imagenes/arduino.png)
+![Diagrama](./imagenes/arduino_plano_esquematico.pdf)
 ~~~~
 // C++ code
 //
