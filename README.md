@@ -1,4 +1,7 @@
-# SPD-examen-montacargas
+# SPD-Examen-Montacargas
+
+## Examen: Montacargas
+![Tinkercad](./img/image.png)
 ~~~~
 // C++ code
 //
