@@ -77,9 +77,18 @@ void loop()
 El loop consiste de la asignacion de la varaible bandera_emergencia atravez de la funcion emergencia la varaible consigue un valo de HIGH o LOW.
 Luego un if evalua esa misma varaible para ver si esta en LOW para poder acceder a la funcion montacargas.
 #### funciones principales
-Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte del parado de emergencia del montacargas.Estas 
+Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte del parado de emergencia del montacargas, luego se encuentra la funcion montacargas la cual se encarga de gestionar las funciones necesarias para que este suba y baje reportando el piso en el que esta.
 
 * Funciones para el paro de emegencia
+Las funciones para el paro de emerrgencia son:
+* emergencia
+* movimiento
+emergencia es una funcion la cual recibe por parametro una bandera y la devuelve con un valor de HIGH o LOW.
+Para esto lee el puerto asociado a BOTON_PARAR para determinar si se esta recibiendo una señal.Luego en conjunto con el valor que la bandera pueda tener determina si debe asignarle HIGH o LOW, siempre para cambiar el valor del mismo y no asignarle un valor que ya tiene.
+Otra funcion que emergencia posee es la de invalitar la el resto de botones ya que mientras la bandera que este retorne sea HIGH no se ejecutara mas codigo que esta funcion.
+movimiento principalmente se encarga de determinar el tiempo durante el cual el ascensor se encuentra en movimiento.Para esto utiliza la funcion millis(la cual se encuentra explicada en la parte inferior de este documento) y un contador inicializado como long para poder guardar el valor que millis devuelve con un adicional de 3000 milisegundos (el tiempo que el montacargas se mueve de piso en piso).
+Lo que permite a la funcion determinar cuanto timepo pasa es un while el cual compara a contador (quien tiene el valor del tiempo a la hora de apretar el boton de inicio del movimiento mas 3 segundos) a la funcion millis y cuando millis devuelva un valor mayor o igual al de contador este terminara la funcion.
+Ahora dentro de este while se encuentra una referencia a la funcion emergencia la cual si el BOTON_PARAR es apretado guardaria el tiempo restante del contador para que este llegue a 3 segundos y si el mismo boton es presionado otra vez el valor que millis deberia alcanzar para que el montacargas llegue a su destino sera guardado en contador
 ~~~~
 int emergencia(int bandera){
     if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
