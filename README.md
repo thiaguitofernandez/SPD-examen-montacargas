@@ -3,6 +3,7 @@
 ## Examen: Montacargas
 ![Tinkercad](./imagenes/arduino.png)
 ![Diagrama](./imagenes/arduino_plano_esquematico.jpg)
+
 ## objetivo del proyecto
 El objetivo de este proyecto es realizar el "menu" interactivo de un montaargas el cual debe subir pisos y bajarlos uno a la vez.
 ## Funcionamiento
@@ -76,7 +77,7 @@ void loop()
 El loop consiste de la asignacion de la varaible bandera_emergencia atravez de la funcion emergencia la varaible consigue un valo de HIGH o LOW.
 Luego un if evalua esa misma varaible para ver si esta en LOW para poder acceder a la funcion montacargas.
 #### funciones principales
-Dentro de las funcione spincipales se encuentra 
+Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte del parado de emergencia del montacargas.Estas 
 
 * Funciones para el paro de emegencia
 ~~~~
