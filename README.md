@@ -73,7 +73,7 @@ void loop()
     }
 }
 ~~~~
-####funciones principales
+#### funciones principales
 
 
 * Funciones para el paro de emegencia
