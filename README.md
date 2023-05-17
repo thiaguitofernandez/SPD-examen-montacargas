@@ -117,62 +117,7 @@ void montacargas(){
 }
 ~~~~
 ### Funciones logicas y procesamiento de datos
-
-### Entrada de datos
-
-### Funciones para apagado y prendido de leds
-~~~~
-void loop()
-{
-    bandera_emergencia = emergencia(bandera_emergencia);
-
-    if (bandera_emergencia == LOW){
-        montacargas();
-    }
-}
-/*funciones principales*/
-
-
-//funciones para el paro de emegencia
-int emergencia(int bandera){
-    if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
-        bandera = LOW;
-      	contador = contador + millis();
-      	Serial.println("Parada de emergencia desactivada");
-      	delay(150);
-    }
-  	else if (digitalRead(BOTON_PARAR) == HIGH){
-        bandera = HIGH ;
-      	contador = contador - millis();
-      	Serial.println("Parada de emergencia activada, por favor contacte con mantenimiento");
-    	delay(150);
-    }
-  	
-  	return bandera;
-}
-
-void movimiento(){
-  	contador = (millis() + 3000);
-    while(contador >= millis()){
-      bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
-      while (bandera_emergencia_moviendo == HIGH){
-        bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
-        delay(100);
-      }
-      
-      
-      
-  	}
-}
-//funcion para mover el montacargas
-void montacargas(){
-  if(digitalRead(BOTON_BAJAR) == HIGH|| digitalRead(BOTON_SUBIR) == HIGH){
-      	control_movimiento();
-    	Serial.print("Usted se encuentra en el piso: ");
-    	Serial.println(piso);
-     	instrucciones_segun_numero();
-  }
-}          
+~~~~          
 //funciones logicas para funcionamiento
 void instrucciones_segun_numero(){
     switch (piso)
@@ -239,8 +184,10 @@ void control_movimiento(){
         prende_led(LUZ_PARADO);
     }
 }
+~~~~ 
 
-
+### Entrada de datos
+~~~~ 
 //entrada de datos
 void subir_piso(){
     if ( (digitalRead(BOTON_SUBIR) == HIGH) && (piso != 9)){
@@ -254,8 +201,9 @@ void bajar_piso(){
         piso--;
     }
 }
-
-
+~~~~ 
+### Funciones para apagado y prendido de leds
+~~~~ 
 
 //funciones para apagar y prender led-->>
 void apaga_led(int led){
