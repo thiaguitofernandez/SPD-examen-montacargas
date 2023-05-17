@@ -13,6 +13,8 @@ para su funcionamiento se divide en diferentes partes las cuales son las siguien
 * Funciones para apagado y prendido de leds
 
 ### Configuracion inicial y definicion de variables
+aqui se establecen los puertos utilizados asignadoles una denominacion, se inicializan las variables y se establece la configuacion inicial indicando la modalidad de cada puerto como el estado de dichos puertos
+* Establecimiento de puertos
 ~~~~
 #define BOTON_PARAR 16
 #define BOTON_SUBIR 15
@@ -26,10 +28,16 @@ para su funcionamiento se divide en diferentes partes las cuales son las siguien
 #define	ARRIBA_IZQUIERDA 9
 #define	ARRIBA 10
 #define	ARRIBA_DERECHA 11
+~~~~
+* Inicializacion de variables
+~~~~
 int bandera_emergencia = LOW;
 int bandera_emergencia_moviendo = LOW;
 int piso = 0;
 long contador = 0;
+~~~~
+* Configuracion Inicial
+~~~~
 void setup()
 {
   pinMode(BOTON_PARAR, INPUT);
