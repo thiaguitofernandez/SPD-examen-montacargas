@@ -90,6 +90,7 @@ Las funciones para el paro de emerrgencia son:
 emergencia es una funcion la cual recibe por parametro una bandera y la devuelve con un valor de HIGH o LOW.
 Para esto lee el puerto asociado a BOTON_PARAR para determinar si se esta recibiendo una señal.Luego en conjunto con el valor que la bandera pueda tener determina si debe asignarle HIGH o LOW, siempre para cambiar el valor del mismo y no asignarle un valor que ya tiene.
 Otra funcion que emergencia posee es la de invalitar la el resto de botones ya que mientras la bandera que este retorne sea HIGH no se ejecutara mas codigo que esta funcion.
+
 ------
 
 * movimiento:
