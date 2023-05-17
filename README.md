@@ -2,9 +2,9 @@
 ~~~~
 // C++ code
 //
-#define boton_parar A2
-#define boton_subir A1
-#define boton_bajar A0
+#define boton_parar 16
+#define boton_subir 15
+#define boton_bajar 14
 #define	luz_moviendo 13
 #define	luz_parado 12
 #define	ABAJO_DERECHA 5
@@ -15,8 +15,9 @@
 #define	ARRIBA 10
 #define	ARRIBA_DERECHA 11
 int BANDERA_EMERGENCIA = LOW;
+int BANDERA_EMERGENCIA_MOVIENDO = LOW;
 int piso = 0;
-int contador = 0;
+long contador = 0;
 void setup()
 {
   pinMode(boton_parar, INPUT);
@@ -34,11 +35,12 @@ void setup()
   prende_numero_cero();
   prende_led(luz_parado);
   Serial.begin(9600);
+  Serial.println("Usted se encuentra en el piso: 0");
 }
 
 void loop()
 {
-    emergencia_quieto();
+    BANDERA_EMERGENCIA = emergencia(BANDERA_EMERGENCIA);
 
     if (BANDERA_EMERGENCIA == LOW){
         montacargas();
@@ -48,32 +50,43 @@ void loop()
 
 
 //funciones para el paro de emegencia
-void emergencia_quieto(){
-    if( (digitalRead(boton_parar) == HIGH) && (BANDERA_EMERGENCIA == HIGH)){
-        BANDERA_EMERGENCIA = LOW;
-    }else if (digitalRead(boton_parar) == HIGH){
-        BANDERA_EMERGENCIA = HIGH ;
+int emergencia(int bandera){
+    if( (digitalRead(boton_parar) == HIGH) && (bandera == HIGH)){
+        bandera = LOW;
+      	contador = contador + millis();
+      	Serial.println("Parada de emergencia desactivada");
+      	delay(150);
     }
+  	else if (digitalRead(boton_parar) == HIGH){
+        bandera = HIGH ;
+      	contador = contador - millis();
+      	Serial.println("Parada de emergencia activada, por favor contacte con mantenimiento");
+    	delay(150);
+    }
+  	
+  	return bandera;
 }
 
 void movimiento(){
   	contador = (millis() + 3000);
-  	Serial.println(contador);
     while(contador >= millis()){
-      if (digitalRead(boton_parar)){
-            BANDERA_EMERGENCIA = LOW;
-            contador = ( contador - millis() ) + millis();
-            while (BANDERA_EMERGENCIA == LOW){
-              emergencia_quieto();
-            }
-      }       
+      BANDERA_EMERGENCIA_MOVIENDO = emergencia(BANDERA_EMERGENCIA_MOVIENDO);
+      while (BANDERA_EMERGENCIA_MOVIENDO == HIGH){
+        BANDERA_EMERGENCIA_MOVIENDO = emergencia(BANDERA_EMERGENCIA_MOVIENDO);
+        delay(100);
+      }
+      
+      
+      
   	}
 }
 //funcion para mover el montacargas
 void montacargas(){
   if(digitalRead(boton_bajar) == HIGH|| digitalRead(boton_subir) == HIGH){
-      control_movimiento();
-      instrucciones_segun_numero();
+      	control_movimiento();
+    	Serial.print("Usted se encuentra en el piso: ");
+    	Serial.println(piso);
+     	instrucciones_segun_numero();
   }
 }          
 //funciones logicas para funcionamiento
@@ -147,11 +160,13 @@ void control_movimiento(){
 //entrada de datos
 void subir_piso(){
     if ( (digitalRead(boton_subir) == HIGH) && (piso != 9)){
+      	Serial.println("Subiendo..");
         piso++;
     }
 }
 void bajar_piso(){
     if ( (digitalRead(boton_bajar) == HIGH) && (piso != 0)){
+      	Serial.println("Bajando..");
         piso--;
     }
 }
