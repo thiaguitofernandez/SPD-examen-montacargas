@@ -60,6 +60,9 @@ void setup()
 ~~~~
 
 ### Loop y funciones pincipales
+Dentro del loop se encuenta el codigo que se ejecuta continuamente y luego las funciones pincipales las cuales son las mas importantes.
+
+* Loop
 ~~~~
 void loop()
 {
@@ -69,10 +72,12 @@ void loop()
         montacargas();
     }
 }
-/*funciones principales*/
+~~~~
+####funciones principales
 
 
-//funciones para el paro de emegencia
+* Funciones para el paro de emegencia
+~~~~
 int emergencia(int bandera){
     if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
         bandera = LOW;
@@ -91,19 +96,16 @@ int emergencia(int bandera){
 }
 
 void movimiento(){
-  	contador = (millis() + 3000);
-    while(contador >= millis()){
-      bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
-      while (bandera_emergencia_moviendo == HIGH){
+   contador = (millis() + 3000);
+   while(contador >= millis()){
+     bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
+     while (bandera_emergencia_moviendo == HIGH){
         bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
-        delay(100);
+     	delay(100);
       }
-      
-      
-      
-  	}
-}
-//funcion para mover el montacargas
+   }
+~~~~ 
+* Funcion para mover el montacargas
 void montacargas(){
   if(digitalRead(BOTON_BAJAR) == HIGH|| digitalRead(BOTON_SUBIR) == HIGH){
       	control_movimiento();
