@@ -83,13 +83,15 @@ Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte de
 Las funciones para el paro de emerrgencia son:
 * emergencia
 * movimiento
-======
+------
+
 * emergencia:
 
 emergencia es una funcion la cual recibe por parametro una bandera y la devuelve con un valor de HIGH o LOW.
 Para esto lee el puerto asociado a BOTON_PARAR para determinar si se esta recibiendo una señal.Luego en conjunto con el valor que la bandera pueda tener determina si debe asignarle HIGH o LOW, siempre para cambiar el valor del mismo y no asignarle un valor que ya tiene.
 Otra funcion que emergencia posee es la de invalitar la el resto de botones ya que mientras la bandera que este retorne sea HIGH no se ejecutara mas codigo que esta funcion.
-======
+------
+
 * movimiento:
 
 movimiento principalmente se encarga de determinar el tiempo durante el cual el ascensor se encuentra en movimiento.Para esto utiliza la funcion millis(la cual se encuentra explicada en la parte inferior de este documento) y un contador inicializado como long para poder guardar el valor que millis devuelve con un adicional de 3000 milisegundos (el tiempo que el montacargas se mueve de piso en piso).
@@ -138,7 +140,8 @@ void montacargas(){
 ~~~~
 ### Funciones logicas y procesamiento de datos
 Estas son las funciones que se encargan de determinar las condiciones que deben requeririse para que ciertas cosas pasen (el cambio de valor de la variable contado o la iluminacion de los leds segun el piso).
-======
+------
+
 * instrucciones_segun_numero:
 
 instrucciones_segun_numero se encarga de segun el valor de la variable piso indicar que se debera hacer con el display 7 segmentos para indicar el piso el piso en el que el montacargas se encuentra actualmente. Para mostrar el numero deseado hace referencia a las funciones prender_numero_...... y apagar_numero_..... para apagar las partes del segmento que pertenece a los numeros anteriores que pudieron estar pendidos y luego prender las partes del segmento que representa el valor de signo.
