@@ -73,8 +73,10 @@ void loop()
     }
 }
 ~~~~
+El loop consiste de la asignacion de la varaible bandera_emergencia atravez de la funcion emergencia la varaible consigue un valo de HIGH o LOW.
+Luego un if evalua esa misma varaible para ver si esta en LOW para poder acceder a la funcion montacargas.
 #### funciones principales
-
+Dentro de las funcione spincipales se encuentra 
 
 * Funciones para el paro de emegencia
 ~~~~
@@ -117,6 +119,7 @@ void montacargas(){
 }
 ~~~~
 ### Funciones logicas y procesamiento de datos
+
 ~~~~          
 //funciones logicas para funcionamiento
 void instrucciones_segun_numero(){
