@@ -8,16 +8,12 @@ El objetivo de este proyecto es realizar el "menu" interactivo de un montaargas 
 ## Funcionamiento
 para su funcionamiento se divide en diferentes partes las cuales son las siguientes:
 * Configuracion y definicion de variables
-* 
+* Loop y funciones pincipales
+* Entrada de datos
+* Funciones para apagado y prendido de leds
 
-### Configuracion y definicion de variables
-
-### loop y funciones pincipal
-
-###
+### Configuracion inicial y definicion de variables
 ~~~~
-// C++ code
-//
 #define BOTON_PARAR 16
 #define BOTON_SUBIR 15
 #define BOTON_BAJAR 14
@@ -53,6 +49,18 @@ void setup()
   Serial.begin(9600);
   Serial.println("Usted se encuentra en el piso: 0");
 }
+~~~~
+
+
+
+### Loop y funciones pincipales
+
+### Funciones logicas y procesamiento de datos
+
+### Entrada de datos
+
+### Funciones para apagado y prendido de leds
+~~~~
 
 void loop()
 {
@@ -65,7 +73,7 @@ void loop()
 /*funciones principales*/
 
 
-//funcion para el paro de emegencia
+//funciones para el paro de emegencia
 int emergencia(int bandera){
     if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
         bandera = LOW;
