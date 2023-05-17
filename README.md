@@ -141,6 +141,7 @@ void montacargas(){
 ~~~~
 ### Funciones logicas y procesamiento de datos
 Estas son las funciones que se encargan de determinar las condiciones que deben requeririse para que ciertas cosas pasen (el cambio de valor de la variable contado o la iluminacion de los leds segun el piso).
+
 ------
 
 * instrucciones_segun_numero:
