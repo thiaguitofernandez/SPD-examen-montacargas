@@ -1,7 +1,7 @@
 # SPD-Examen-Montacargas
 
 ## Examen: Montacargas
-![Tinkercad](./img/image.png)
+![Tinkercad](./imagenes/arduino.png)
 ~~~~
 // C++ code
 //
