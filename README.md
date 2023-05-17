@@ -106,6 +106,7 @@ void movimiento(){
    }
 ~~~~ 
 * Funcion para mover el montacargas
+~~~~
 void montacargas(){
   if(digitalRead(BOTON_BAJAR) == HIGH|| digitalRead(BOTON_SUBIR) == HIGH){
       	control_movimiento();
