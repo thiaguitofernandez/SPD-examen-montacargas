@@ -2,11 +2,11 @@
 ~~~~
 // C++ code
 //
-#define boton_parar 16
-#define boton_subir 15
-#define boton_bajar 14
-#define	luz_moviendo 13
-#define	luz_parado 12
+#define BOTON_PARAR 16
+#define BOTON_SUBIR 15
+#define BOTON_BAJAR 14
+#define	LUZ_MOVIENDO 13
+#define	LUZ_PARADO 12
 #define	ABAJO_DERECHA 5
 #define	ABAJO 6
 #define	ABAJO_IZQUIERDA 7
@@ -14,17 +14,17 @@
 #define	ARRIBA_IZQUIERDA 9
 #define	ARRIBA 10
 #define	ARRIBA_DERECHA 11
-int BANDERA_EMERGENCIA = LOW;
-int BANDERA_EMERGENCIA_MOVIENDO = LOW;
+int bandera_emergencia = LOW;
+int bandera_emergencia_moviendo = LOW;
 int piso = 0;
 long contador = 0;
 void setup()
 {
-  pinMode(boton_parar, INPUT);
-  pinMode(boton_subir, INPUT);
-  pinMode(boton_bajar, INPUT);
-  pinMode(luz_moviendo, OUTPUT);
-  pinMode(luz_parado, OUTPUT);
+  pinMode(BOTON_PARAR, INPUT);
+  pinMode(BOTON_SUBIR, INPUT);
+  pinMode(BOTON_BAJAR, INPUT);
+  pinMode(LUZ_MOVIENDO, OUTPUT);
+  pinMode(LUZ_PARADO, OUTPUT);
   pinMode(ABAJO_DERECHA, OUTPUT);
   pinMode(ABAJO, OUTPUT);
   pinMode(ABAJO_IZQUIERDA, OUTPUT);
@@ -33,16 +33,16 @@ void setup()
   pinMode(ARRIBA, OUTPUT);
   pinMode(ARRIBA_DERECHA, OUTPUT);
   prende_numero_cero();
-  prende_led(luz_parado);
+  prende_led(LUZ_PARADO);
   Serial.begin(9600);
   Serial.println("Usted se encuentra en el piso: 0");
 }
 
 void loop()
 {
-    BANDERA_EMERGENCIA = emergencia(BANDERA_EMERGENCIA);
+    bandera_emergencia = emergencia(bandera_emergencia);
 
-    if (BANDERA_EMERGENCIA == LOW){
+    if (bandera_emergencia == LOW){
         montacargas();
     }
 }
@@ -51,13 +51,13 @@ void loop()
 
 //funciones para el paro de emegencia
 int emergencia(int bandera){
-    if( (digitalRead(boton_parar) == HIGH) && (bandera == HIGH)){
+    if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
         bandera = LOW;
       	contador = contador + millis();
       	Serial.println("Parada de emergencia desactivada");
       	delay(150);
     }
-  	else if (digitalRead(boton_parar) == HIGH){
+  	else if (digitalRead(BOTON_PARAR) == HIGH){
         bandera = HIGH ;
       	contador = contador - millis();
       	Serial.println("Parada de emergencia activada, por favor contacte con mantenimiento");
@@ -70,9 +70,9 @@ int emergencia(int bandera){
 void movimiento(){
   	contador = (millis() + 3000);
     while(contador >= millis()){
-      BANDERA_EMERGENCIA_MOVIENDO = emergencia(BANDERA_EMERGENCIA_MOVIENDO);
-      while (BANDERA_EMERGENCIA_MOVIENDO == HIGH){
-        BANDERA_EMERGENCIA_MOVIENDO = emergencia(BANDERA_EMERGENCIA_MOVIENDO);
+      bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
+      while (bandera_emergencia_moviendo == HIGH){
+        bandera_emergencia_moviendo = emergencia(bandera_emergencia_moviendo);
         delay(100);
       }
       
@@ -82,7 +82,7 @@ void movimiento(){
 }
 //funcion para mover el montacargas
 void montacargas(){
-  if(digitalRead(boton_bajar) == HIGH|| digitalRead(boton_subir) == HIGH){
+  if(digitalRead(BOTON_BAJAR) == HIGH|| digitalRead(BOTON_SUBIR) == HIGH){
       	control_movimiento();
     	Serial.print("Usted se encuentra en el piso: ");
     	Serial.println(piso);
@@ -145,27 +145,27 @@ void instrucciones_segun_numero(){
 }
 
 void control_movimiento(){
-    if ( (digitalRead(boton_subir) == HIGH) || (digitalRead(boton_bajar) == HIGH)){
-        apaga_led(luz_parado);
-        prende_led(luz_moviendo);
+    if ( (digitalRead(BOTON_SUBIR) == HIGH) || (digitalRead(BOTON_BAJAR) == HIGH)){
+        apaga_led(LUZ_PARADO);
+        prende_led(LUZ_MOVIENDO);
         subir_piso();
         bajar_piso();
 		movimiento();
-        apaga_led(luz_moviendo);
-        prende_led(luz_parado);
+        apaga_led(LUZ_MOVIENDO);
+        prende_led(LUZ_PARADO);
     }
 }
 
 
 //entrada de datos
 void subir_piso(){
-    if ( (digitalRead(boton_subir) == HIGH) && (piso != 9)){
+    if ( (digitalRead(BOTON_SUBIR) == HIGH) && (piso != 9)){
       	Serial.println("Subiendo..");
         piso++;
     }
 }
 void bajar_piso(){
-    if ( (digitalRead(boton_bajar) == HIGH) && (piso != 0)){
+    if ( (digitalRead(BOTON_BAJAR) == HIGH) && (piso != 0)){
       	Serial.println("Bajando..");
         piso--;
     }
