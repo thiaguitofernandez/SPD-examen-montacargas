@@ -12,7 +12,9 @@ para su funcionamiento se divide en diferentes partes las cuales son las siguien
 
 ### Configuracion y definicion de variables
 
-### funcion pincipal
+### loop y funciones pincipal
+
+###
 ~~~~
 // C++ code
 //
@@ -63,7 +65,7 @@ void loop()
 /*funciones principales*/
 
 
-//funciones para el paro de emegencia
+//funcion para el paro de emegencia
 int emergencia(int bandera){
     if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
         bandera = LOW;
