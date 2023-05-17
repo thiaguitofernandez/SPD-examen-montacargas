@@ -3,6 +3,11 @@
 ## Examen: Montacargas
 ![Tinkercad](./imagenes/arduino.png)
 ![Diagrama](./imagenes/arduino_plano_esquematico.jpg)
+## objetivo del proyecto
+
+##funcionamiento
+
+#configuracion y definicion de variables
 ~~~~
 // C++ code
 //
