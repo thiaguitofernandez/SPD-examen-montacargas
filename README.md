@@ -6,31 +6,34 @@
 
 ## objetivo del proyecto
 El objetivo de este proyecto es realizar el "menu" interactivo de un montaargas el cual debe subir pisos y bajarlos uno a la vez.
-## Funcionamiento
+## Funcionamiento.
 para su funcionamiento se divide en diferentes partes las cuales son las siguientes:
-* Configuracion y definicion de variables
-* Loop y funciones pincipales
-* Entrada de datos
-* Funciones para apagado y prendido de leds
+* Configuracion y definicion de variables.
+* Loop y funciones pincipales.
+* Entrada de datos.
+* Funciones para apagado y prendido de leds.
 
-### Configuracion inicial y definicion de variables
+### Configuracion inicial y definicion de variables.
 Aqui se establecen los puertos utilizados asignadoles una denominacion, se inicializan las variables y se establece la configuacion inicial indicando la modalidad de cada puerto como el estado de dichos puertos
-* Establecimiento de puertos
+* Establecimiento de nombre de los puertos.
+
+Los puertos establecidos fueron de los puertos digitales 13 al puerto 5 y tambien se convitieron los puertos analogicos A0 a A2 en puertos digitales yendo de 14 a 16 en el mismo orden de antes.
+Y estos fueron para los siguientes 
 ~~~~
 #define BOTON_PARAR 16
 #define BOTON_SUBIR 15
 #define BOTON_BAJAR 14
 #define	LUZ_MOVIENDO 13
 #define	LUZ_PARADO 12
-#define	ABAJO_DERECHA 5
-#define	ABAJO 6
-#define	ABAJO_IZQUIERDA 7
-#define	CENTRO 8
-#define	ARRIBA_IZQUIERDA 9
-#define	ARRIBA 10
 #define	ARRIBA_DERECHA 11
+#define	ARRIBA 10
+#define	ARRIBA_IZQUIERDA 9
+#define	CENTRO 8
+#define	ABAJO_IZQUIERDA 7
+#define	ABAJO 6
+#define	ABAJO_DERECHA 5
 ~~~~
-* Inicializacion de variables
+* Inicializacion de variables.
 
 Las variables son 4:
 2 siendo banderas(**bandera_emergencia** y **bandera_emegencia_moviendo**) que se utilizan para habilitar y desabilitar el codigo por lo que poseen valores de HIGH y LOW.
@@ -41,7 +44,7 @@ int bandera_emergencia_moviendo = LOW;
 int piso = 0;
 long contador = 0;
 ~~~~
-* Configuracion Inicial
+* Configuracion Inicial.
 ~~~~
 void setup()
 {
@@ -64,7 +67,7 @@ void setup()
 }
 ~~~~
 
-### Loop y funciones pincipales
+### Loop y funciones pincipales.
 Dentro del loop se encuenta el codigo que se ejecuta continuamente y luego las funciones pincipales las cuales son las mas importantes.
 
 * **Loop**
@@ -81,11 +84,11 @@ void loop()
 El loop consiste de la asignacion de la varaible **bandera_emergencia** atravez de la funcion emergencia la varaible consigue un valo de HIGH o LOW.
 Luego un if evalua esa misma varaible para ver si esta en LOW para poder acceder a la funcion montacargas.
 
-#### funciones principales
+#### funciones principales.
 
 Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte del parado de emergencia del montacargas, luego se encuentra la funcion **montacargas** la cual se encarga de gestionar las funciones necesarias para que este suba y baje reportando el piso en el que esta.
 
-* Funciones para el paro de emergencia
+* Funciones para el paro de emergencia.
 Las funciones para el paro de emergencia son:
 * **emergencia**
 * **movimiento**
@@ -103,7 +106,7 @@ Otra funcion que emergencia posee es la de invalitar la el resto de botones ya q
 
 **movimiento** principalmente se encarga de determinar el tiempo durante el cual el ascensor se encuentra en movimiento.Para esto utiliza la funcion millis(la cual se encuentra explicada en la parte inferior de este documento) y un contador inicializado como long para poder guardar el valor que **millis** devuelve con un adicional de 3000 milisegundos (el tiempo que el montacargas se mueve de piso en piso).
 Lo que permite a la funcion determinar cuanto timepo pasa es un while el cual compara a **contador** (quien tiene el valor del tiempo a la hora de apretar el boton de inicio del movimiento mas 3 segundos) a la funcion **millis** y cuando **millis** devuelva un valor mayor o igual al de **contador** este terminara la funcion.
-Ahora dentro de este while se encuentra una referencia a la funcion emergencia la cual si el **BOTON_PARAR** es apretado guardaria el tiempo restante del contador para que este llegue a 3 segundos y si el mismo boton es presionado otra vez el valor que **millis** deberia alcanzar para que el montacargas llegue a su destino sera guardado en contador
+Ahora dentro de este while se encuentra una referencia a la funcion emergencia la cual si el **BOTON_PARAR** es apretado guardaria el tiempo restante del contador para que este llegue a 3 segundos y si el mismo boton es presionado otra vez el valor que **millis** deberia alcanzar para que el montacargas llegue a su destino sera guardado en contador.
 ~~~~
 int emergencia(int bandera){
     if( (digitalRead(BOTON_PARAR) == HIGH) && (bandera == HIGH)){
@@ -146,7 +149,7 @@ void montacargas(){
 }
 ~~~~
 
-### Funciones logicas y procesamiento de datos
+### Funciones logicas y procesamiento de datos.
 
 Estas son las funciones que se encargan de determinar las condiciones que deben requeririse para que ciertas cosas pasen (el cambio de valor de la variable contado o la iluminacion de los leds segun el piso).
 
@@ -226,7 +229,7 @@ void control_movimiento(){
 }
 ~~~~ 
 
-### Entrada de datos
+### Entrada de datos.
 
 Las funciones clasificadas como entrada de datos son:
 * **subir_piso**
@@ -258,14 +261,14 @@ void bajar_piso(){
 ~~~~ 
 ### Funciones para apagado y prendido de leds
 Estas funciones son las encargadas de cambiar el estado de los puertos asignados a leds dividiendose en dos caterias:
-* Las funciones para evitar la repeticion de DigitalWrite
-* Las funciones para determinar la combinacion de un numero en el display
+* Las funciones para evitar la repeticion de DigitalWrite.
+* Las funciones para determinar la combinacion de un numero en el display.
 
 Ambas de estas categorias tienen variantes para prender y apagar los leds.
 
 * Las funciones para evitar la repeticion de DigitalWrite:
 
-Estas son una funcion que recibe por parametro un puerto y mediante digitalWrite cambia el puerto de HIGH a LOW o de LOW a HIGH
+Estas son una funcion que recibe por parametro un puerto y mediante digitalWrite cambia el puerto de HIGH a LOW o de LOW a HIGH.
 ~~~~ 
 void apaga_led(int led){
   digitalWrite(led, LOW);
@@ -276,7 +279,7 @@ void prende_led(int led){
 ~~~~
 * Las funciones para determinar la combinacion de un numero en el display:
 
-Estas funciones utilizan las funciones anteriores para en el display 7 segmentos mostrar el numero que tienen en el nombre o para deja de mostrarlo
+Estas funciones utilizan las funciones anteriores para en el display 7 segmentos mostrar el numero que tienen en el nombre o para deja de mostrarlo.
 ~~~~
 void prende_numero_cero(){
   prende_led(ARRIBA);
@@ -424,7 +427,7 @@ void apaga_numero_nueve(){
   apaga_led(ABAJO_DERECHA);
 }
 ~~~~
-### millis
+### millis.
 **millis** es una funcion predefinida dentro de arduino la cual retorna el tiempo desde que el pocesador de arduino se activo de forma exacta(mediante milisegunods) y con formato **long** por lo que tambien deberia ser de este formato la variable en la que se guarde (si es que se guarda)  ya que si se guarda en **int** a los 32 segundos de tiempo activo el numero seria mayor que el mayor numero que este tipo de variable puede contener y se desbordaria pasando al menor numeor que este puede guardar.
-## Link al proyecto
+## Link al proyecto.
 - [proyecto](https://www.tinkercad.com/things/b1FarQ0Edki)
