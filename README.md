@@ -420,5 +420,7 @@ void apaga_numero_nueve(){
   apaga_led(ABAJO_DERECHA);
 }
 ~~~~
+### millis
+millis es una funcion predefinida dentro de arduino la cual retorna el tiempo desde que el pocesador de arduino se activo de forma exacta(mediante milisegunods) y con formato long por lo que tambien deberia ser de este formato la variable en la que se guarde (si es que se guarda)  ya que si se guarda en int a los 32 segundos de tiempo activo el numero seria mayor que el mayor numero que este tipo de variable puede contener y se desbordaria pasando al menor numeor que este puede guardar.
 ## Link al proyecto
 - [proyecto](https://www.tinkercad.com/things/b1FarQ0Edki)
