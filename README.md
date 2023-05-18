@@ -34,7 +34,7 @@ Aqui se establecen los puertos utilizados asignadoles una denominacion, se inici
 
 Las variables son 4:
 2 siendo banderas(**bandera_emergencia** y **bandera_emegencia_moviendo**) que se utilizan para habilitar y desabilitar el codigo por lo que poseen valores de HIGH y LOW.
-Y las otras siendo piso una variable de tipo int que tiene valores de 0 a 9 y contador una variable de tipo long para tener el rango utilizable de la funcion millis.
+Y las otras siendo piso una variable de tipo **int** que tiene valores de 0 a 9 y contador una variable de tipo **long** para tener el rango utilizable de la funcion millis.
 ~~~~
 int bandera_emergencia = LOW;
 int bandera_emergencia_moviendo = LOW;
