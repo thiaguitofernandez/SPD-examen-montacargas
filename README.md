@@ -45,6 +45,8 @@ int piso = 0;
 long contador = 0;
 ~~~~
 * Configuracion Inicial.
+
+Aqui se confugura los puertos para indicar su funcion, ya sea de salidad como de entrada, se inicia el monitor serial con una velocidad de 9600 y se configura el estado inicial que los puerto deberian de tener.
 ~~~~
 void setup()
 {
