@@ -76,7 +76,9 @@ void loop()
 ~~~~
 El loop consiste de la asignacion de la varaible bandera_emergencia atravez de la funcion emergencia la varaible consigue un valo de HIGH o LOW.
 Luego un if evalua esa misma varaible para ver si esta en LOW para poder acceder a la funcion montacargas.
+
 #### funciones principales
+
 Dentro de las funciones pincipales se encuentran 2 funciones que llevan parte del parado de emergencia del montacargas, luego se encuentra la funcion montacargas la cual se encarga de gestionar las funciones necesarias para que este suba y baje reportando el piso en el que esta.
 
 * Funciones para el paro de emegencia
@@ -139,7 +141,9 @@ void montacargas(){
   }
 }
 ~~~~
+
 ### Funciones logicas y procesamiento de datos
+
 Estas son las funciones que se encargan de determinar las condiciones que deben requeririse para que ciertas cosas pasen (el cambio de valor de la variable contado o la iluminacion de los leds segun el piso).
 
 ------
@@ -219,6 +223,7 @@ void control_movimiento(){
 ~~~~ 
 
 ### Entrada de datos
+
 Las funciones clasificadas como entrada de datos son:
 * subir_piso
 * bajar_piso
@@ -415,3 +420,5 @@ void apaga_numero_nueve(){
   apaga_led(ABAJO_DERECHA);
 }
 ~~~~
+## Link al proyecto
+- [proyecto](https://www.tinkercad.com/things/b1FarQ0Edki)
